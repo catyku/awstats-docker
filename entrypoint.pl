@@ -102,7 +102,7 @@ if ($log_files eq 'httpd') {
     print "Starting httpd awstats\n";
     exec "/usr/sbin/httpd", "-DFOREGROUND";
 }
-else 
+else {
 if ($log_files eq 'output') {
     print "Starting output awstats html \n";
      my @args = (
@@ -138,4 +138,5 @@ else {
         print "No logfiles on command line, using LogFile from $site_domain configuration file \n"
     }
     exec @args;
+}
 }
