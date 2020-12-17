@@ -115,6 +115,7 @@ if ($log_files eq 'output') {
         "$html_file"
         
     );
+    print "@args \n";
     exec @args;
 }
 else {
