@@ -20,6 +20,7 @@ chomp($log_files);
 my $log_format = env_default('LOG_FORMAT', '');
 my $site_domain = env_default('SITE_DOMAIN', 'localhost');
 my $skip_user_agents = env_default('SKIP_USER_AGENTS', 'Travis Hudson');
+my $html_file = env_default('HTML_FILE', '/home/data/index.html');
 
 my @skip_hosts_re = ();
 if (defined $ENV{'SKIP_HOSTS'}) {
@@ -35,21 +36,7 @@ else {
         '^172\.(1[6-9]|2[0-9]|3[01])\.',
         '^10\.',
 
-        '^54\.172\.141\.90$',
-        '^52\.3\.133\.20$',
-        '^52\.45\.220\.64$',
-        '^52\.54\.40\.118$',
-        '^54\.89\.89\.104$',
-        '^54\.82\.137\.203$',
-        '^52\.0\.240\.122$',
-        '^52\.22\.60\.255$',
-        '^52\.45\.185\.117$',
-        '^52\.54\.31\.11$',
-        '^54\.87\.185\.35$',
-        '^54\.87\.141\.246$',
-        '^208\.78\.110\.19[2-9]$',
-        '^208\.78\.110\.20[01][0-9]$',
-        '^208\.78\.110\.22[0-3]$',
+        
     );
 }
 
@@ -114,6 +101,19 @@ else {
 if ($log_files eq 'httpd') {
     print "Starting httpd awstats\n";
     exec "/usr/sbin/httpd", "-DFOREGROUND";
+}
+else 
+if ($log_files eq 'output') {
+    print "Starting output awstats html \n";
+     my @args = (
+        "/usr/share/awstats/wwwroot/cgi-bin/awstats.pl",
+        "-config=$site_domain",
+        "-update",
+        "-output ",
+        "-staticlinks"
+        
+    );
+    exec @args;
 }
 else {
     print "Updating log statistics\n";
