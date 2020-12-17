@@ -41,6 +41,14 @@ The new logs must be [newer than the existing ones](http://www.awstats.org/docs/
     docker run --rm -v /data/web-logs-new:/web-logs-new:ro -v awstats-db:/var/lib/awstats \
         openmicroscopy/awstats '/web-logs-new/access.log-\*.gz'
 
+## output html file
+
+default output html file `/tmp/www-data/wwwroot/index.html`  
+
+```
+docker run --rm  -v /tmp/www-data/wwwroot/:/tmp/data -v awstats-db:/var/lib/awstats catyku/awstats output
+```
+
 
 ## Configuration
 
