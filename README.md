@@ -8,6 +8,13 @@ The generation of Awstats statistics is decoupled from the Awstats web interface
 `/var/lib/awstats` should be a persistent volume.
 
 
+## build docker image 
+
+```
+docker --build -t catyku/awstats . --no-cache
+```
+
+
 ## Usage
 
 Create a named volume:
