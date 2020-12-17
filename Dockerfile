@@ -28,6 +28,8 @@ RUN \
     echo "RedirectMatch ^/$ /awstats/awstats.pl?config=localhost" > /etc/httpd/conf.d/welcome.conf
 COPY entrypoint.pl /
 
+RUN mkdir -p /tmp/data
+
 USER awstats
 
 EXPOSE 8080
