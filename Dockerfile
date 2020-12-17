@@ -1,5 +1,7 @@
 FROM centos:7
-MAINTAINER ome-devel@lists.openmicroscopy.org.uk
+MAINTAINER catyku
+
+RUN yum update -y && yum upgrade -y 
 
 RUN yum -y install epel-release && \
     yum -y install awstats httpd && \
