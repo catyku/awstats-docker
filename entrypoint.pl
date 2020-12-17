@@ -20,7 +20,7 @@ chomp($log_files);
 my $log_format = env_default('LOG_FORMAT', '');
 my $site_domain = env_default('SITE_DOMAIN', 'localhost');
 my $skip_user_agents = env_default('SKIP_USER_AGENTS', 'Travis Hudson');
-my $html_file = env_default('HTML_FILE', '/home/data/index.html');
+my $html_file = env_default('HTML_FILE', '/tmp/data/index.html');
 
 my @skip_hosts_re = ();
 if (defined $ENV{'SKIP_HOSTS'}) {
