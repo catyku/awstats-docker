@@ -109,8 +109,10 @@ if ($log_files eq 'output') {
         "/usr/share/awstats/wwwroot/cgi-bin/awstats.pl",
         "-config=$site_domain",
         "-update",
-        "-output ",
-        "-staticlinks"
+        "-output",
+        "-staticlinks",
+        ">",
+        "$html_file"
         
     );
     exec @args;
