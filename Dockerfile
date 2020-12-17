@@ -6,7 +6,7 @@ RUN yum -y install epel-release && \
     yum clean all
 
 RUN mkdir -p /opt/GeoIP && \
-    curl -L https://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz \
+    curl -L https://mirrors-cdn.liferay.com/geolite.maxmind.com/download/geoip/database/GeoIP.dat.gz \
         | gunzip -c - > /opt/GeoIP/GeoIP.dat && \
     curl -L https://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz \
         | gunzip -c - > /opt/GeoIP/GeoLiteCity.dat
