@@ -4,14 +4,14 @@ MAINTAINER catyku
 RUN yum update -y && yum upgrade -y 
 
 RUN yum -y install epel-release && yum -y update && yum -y upgrade && \
-    yum -y install awstats httpd && \
+    yum -y install GeoIP GeoIP-devel GeoIP-data awstats httpd && \
     yum clean all
 
-RUN mkdir -p /opt/GeoIP && \
-    curl -L https://mirrors-cdn.liferay.com/geolite.maxmind.com/download/geoip/database/GeoIP.dat.gz \
-        | gunzip -c - > /opt/GeoIP/GeoIP.dat && \
-    curl -L https://mirrors-cdn.liferay.com/geolite.maxmind.com/download/geoip/database/GeoLiteCityv6.dat.gz \
-        | gunzip -c - > /opt/GeoIP/GeoLiteCity.dat
+#RUN mkdir -p /opt/GeoIP && \
+#    curl -L https://mirrors-cdn.liferay.com/geolite.maxmind.com/download/geoip/database/GeoIP.dat.gz \
+#        | gunzip -c - > /opt/GeoIP/GeoIP.dat && \
+#    curl -L https://mirrors-cdn.liferay.com/geolite.maxmind.com/download/geoip/database/GeoLiteCityv6.dat.gz \
+#        | gunzip -c - > /opt/GeoIP/GeoLiteCity.dat
 RUN useradd -M -d /var/lib/awstats awstats && \
     chown awstats:awstats /var/lib/awstats /etc/awstats /run/httpd && \
     bash -O extglob -c 'rm /etc/awstats/!(awstats.model.conf)'
@@ -26,9 +26,18 @@ RUN \
         -e 's!^(\s*Listen)\s+\S+!\1 8080!g' \
         /etc/httpd/conf/httpd.conf && \
     echo "RedirectMatch ^/$ /awstats/awstats.pl?config=localhost" > /etc/httpd/conf.d/welcome.conf
+
+RUN ln -s /usr/share/GeoIP/GeoIPCityv6-initial.dat /usr/share/GeoIP/GeoLiteCityv6.dat
+RUN ln -s /usr/share/GeoIP/GeoIPCity-initial.dat /usr/share/GeoIP/GeoLiteCity.dat
+#RUN ln -s /usr/share/GeoIP/GeoIPCityv6-initial.dat /usr/share/GeoIP/GeoIPLiteCityv6.dat
+#RUN ln -s /usr/share/GeoIP/GeoIPCityv6-initial.dat /usr/share/GeoIP/GeoIPLiteCityv6.dat
+
+
+RUN ln -s /usr/share/GeoIP /opt/GeoIP
+
 COPY entrypoint.pl /
 
-USER awstats
+#USER awstats
 
 RUN mkdir -p /tmp/data
 
