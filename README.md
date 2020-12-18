@@ -49,7 +49,11 @@ default output html file `/tmp/www-data/wwwroot/index.html`
 docker run --rm  -v /tmp/www-data/wwwroot/:/tmp/data -v awstats-db:/var/lib/awstats catyku/awstats output
 ```
 
+or 
 
+```
+docker run --rm   -v awstats-db:/var/lib/awstats catyku/awstats output  > yusheng.html
+```
 ## Configuration
 
 The configuration file `/etc/awstats/awstats.SITE_DOMAIN.conf` will be automatically generated at runtime if it doesn't exist.
